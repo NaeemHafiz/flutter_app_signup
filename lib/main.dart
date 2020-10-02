@@ -23,6 +23,16 @@ class RegisterPageState extends State<RegisterPage> {
   TextEditingController emailAddressController = TextEditingController();
   TextEditingController mobileNumberController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  AnimationController controller;
+  Animation growAnimation;
+
+  @override
+  void initState() {
+    growAnimation = Tween<double>(begin: 0, end: 200).animate(controller);
+    controller.forward();
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,19 +79,6 @@ class RegisterPageState extends State<RegisterPage> {
                       maxLength: 50,
                       myController: firstNameController,
                     ),
-                    // TextFormField(
-                    //   obscureText: false,
-                    //   keyboardType: TextInputType.text,
-                    //   controller: firstNameController,
-                    //   decoration: InputDecoration(
-                    //     filled: true,
-                    //     fillColor: Colors.white,
-                    //     enabledBorder: OutlineInputBorder(
-                    //         borderSide: BorderSide(color: Colors.black12)),
-                    //     border: OutlineInputBorder(),
-                    //     hintText: 'First Name',
-                    //   ),
-                    // ),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -99,19 +96,6 @@ class RegisterPageState extends State<RegisterPage> {
                       maxLength: 50,
                       myController: lastNameController,
                     ),
-                    // TextFormField(
-                    //   obscureText: false,
-                    //   keyboardType: TextInputType.text,
-                    //   controller: lastNameController,
-                    //   decoration: InputDecoration(
-                    //     filled: true,
-                    //     fillColor: Colors.white,
-                    //     enabledBorder: OutlineInputBorder(
-                    //         borderSide: BorderSide(color: Colors.black12)),
-                    //     border: OutlineInputBorder(),
-                    //     hintText: 'Last Name',
-                    //   ),
-                    // ),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
@@ -183,20 +167,6 @@ class RegisterPageState extends State<RegisterPage> {
                       myController: emailAddressController,
                     ),
                   ),
-                  // TextFormField(
-                  //   obscureText: false,
-                  //   keyboardType: TextInputType.emailAddress,
-                  //   controller: passwordController,
-                  //   decoration: InputDecoration(
-                  //     filled: true,
-                  //     fillColor: Colors.white,
-                  //     enabledBorder: OutlineInputBorder(
-                  //         borderSide: BorderSide(color: Colors.black12)),
-                  //     border: OutlineInputBorder(),
-                  //     hintText: 'Email address',
-                  //   ),
-                  // ),
-
                   Container(
                     padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: CustomInput(
@@ -213,19 +183,6 @@ class RegisterPageState extends State<RegisterPage> {
                       maxLength: 50,
                       myController: passwordController,
                     ),
-                    // TextFormField(
-                    //   obscureText: true,
-                    //   keyboardType: TextInputType.text,
-                    //   controller: passwordController,
-                    //   decoration: InputDecoration(
-                    //     filled: true,
-                    //     fillColor: Colors.white,
-                    //     enabledBorder: OutlineInputBorder(
-                    //         borderSide: BorderSide(color: Colors.black12)),
-                    //     border: OutlineInputBorder(),
-                    //     hintText: 'Password',
-                    //   ),
-                    // ),
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -247,19 +204,6 @@ class RegisterPageState extends State<RegisterPage> {
                       myController: confirmPasswordController,
                     ),
                   ),
-                  // TextFormField(
-                  //   obscureText: true,
-                  //   keyboardType: TextInputType.text,
-                  //   controller: confirmPasswordController,
-                  //   decoration: InputDecoration(
-                  //     fillColor: Colors.white,
-                  //     filled: true,
-                  //     enabledBorder: OutlineInputBorder(
-                  //         borderSide: BorderSide(
-                  //             width: 2.0, color: Color(0xffEAEAEA))),
-                  //     hintText: 'Confirm Password',
-                  //   ),
-                  // ),
                   Container(
                     padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: Row(
