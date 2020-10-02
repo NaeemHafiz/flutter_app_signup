@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_signup/utils/custominput.dart';
+import 'package:flutter_app_signup/utils/loginpage.dart';
+import 'package:flutter_app_signup/utils/sliderightroute.dart';
 import 'package:flutter_app_signup/utils/widget_values.dart';
 
 void main() => runApp(MaterialApp(
@@ -352,7 +354,10 @@ class RegisterPageState extends State<RegisterPage> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 30.0),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context, SlideRightRoute(page: LoginPage()));
+                          },
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(10.0),
                           ),
