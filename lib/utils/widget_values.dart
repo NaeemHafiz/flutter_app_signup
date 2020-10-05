@@ -21,8 +21,8 @@ class WidgetValues {
       fontWeight: FontWeight.w300,
       fontSize: AppValue.formFieldFontSize);
 
-
-
+  static var textStyleListView = TextStyle(
+      color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.w500);
 
   static String validateEmail(String value) {
 //    final bool isValid = EmailValidator.validate(value);
@@ -36,5 +36,4 @@ class WidgetValues {
       return null;
     }
   }
-
 }

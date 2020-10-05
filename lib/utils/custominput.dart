@@ -25,34 +25,37 @@ class CustomInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      focusNode: focusNode,
-      textAlignVertical: TextAlignVertical.center,
-      textAlign: TextAlign.left,
-      style: WidgetValues.textStyleInputFiled,
-      decoration: InputDecoration(
-        fillColor: AppColors.whitecolor,
-        filled: true,
-        labelText: hint,
-        floatingLabelBehavior: FloatingLabelBehavior.auto,
-        labelStyle: WidgetValues.labelStyleInputFiled,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(width: 2.0, color: Color(0xffEAEAEA))),
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+      child: TextFormField(
+        focusNode: focusNode,
+        textAlignVertical: TextAlignVertical.center,
+        textAlign: TextAlign.left,
+        style: WidgetValues.textStyleInputFiled,
+        decoration: InputDecoration(
+          fillColor: AppColors.whitecolor,
+          filled: true,
+          labelText: hint,
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          labelStyle: WidgetValues.labelStyleInputFiled,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(width: 2.0, color: Color(0xffEAEAEA))),
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide.none,
+          ),
+          counter: Offstage(),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
-        ),
-        counter: Offstage(),
+        obscureText: obsecureText,
+        maxLength: maxLength,
+        validator: validator,
+        inputFormatters: <TextInputFormatter>[formatter],
+        controller: myController,
+        onSaved: onSaved,
       ),
-      obscureText: obsecureText,
-      maxLength: maxLength,
-      validator: validator,
-      inputFormatters: <TextInputFormatter>[formatter],
-      controller: myController,
-      onSaved: onSaved,
     );
   }
 }
