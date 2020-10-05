@@ -7,6 +7,8 @@ class CustomInput extends StatelessWidget {
   final String hint;
   final Function onSaved;
   final bool obsecureText;
+  final textColor;
+  final TextInputType textInputType;
   final int maxLength;
   final FormFieldValidator<String> validator;
   final TextInputFormatter formatter;
@@ -15,13 +17,15 @@ class CustomInput extends StatelessWidget {
 
   CustomInput(
       {this.hint,
+      this.textInputType,
       this.onSaved,
       this.validator,
       this.formatter,
       this.obsecureText,
       this.maxLength,
       this.myController,
-      this.focusNode});
+      this.focusNode,
+      this.textColor});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +35,7 @@ class CustomInput extends StatelessWidget {
         focusNode: focusNode,
         textAlignVertical: TextAlignVertical.center,
         textAlign: TextAlign.left,
+        keyboardType: textInputType,
         style: WidgetValues.textStyleInputFiled,
         decoration: InputDecoration(
           fillColor: AppColors.whitecolor,
@@ -39,7 +44,7 @@ class CustomInput extends StatelessWidget {
           floatingLabelBehavior: FloatingLabelBehavior.auto,
           labelStyle: WidgetValues.labelStyleInputFiled,
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(width: 2.0, color: Color(0xffEAEAEA))),
           border: OutlineInputBorder(
             borderSide: BorderSide.none,

@@ -3,7 +3,7 @@ import 'package:flutter_app_signup/utils/widget_values.dart';
 
 
 
-class CountryList extends StatelessWidget {
+class CountryListPage extends StatelessWidget {
   List<String> strArr = ['Pakistan', 'China', 'Turkey', 'Russia', 'Sri Lanka'];
   String selectedValue;
 

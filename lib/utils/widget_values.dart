@@ -25,15 +25,19 @@ class WidgetValues {
       color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.w500);
 
   static String validateEmail(String value) {
-//    final bool isValid = EmailValidator.validate(value);
     if (value.length == 0) {
       return "Email is required";
-    }
-//    else if (!isValid) {
-//      return "Please enter valid email address";
-//    }
-    else {
+    } else {
       return null;
     }
+  }
+
+  static String validateMobile(String mobileNnumber) {
+    if (mobileNnumber.length == 0) {
+      return 'Please Enter Mobile Number';
+    } else if (mobileNnumber[0] == '0') {
+      return 'Please enter valid mobile number';
+    }
+    return null;
   }
 }

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app_signup/utils/custominput.dart';
 import 'package:flutter_app_signup/utils/countrylist.dart';
+import 'package:flutter_app_signup/utils/custominput.dart';
 import 'package:flutter_app_signup/utils/sliderightroute.dart';
 import 'package:flutter_app_signup/utils/widget_values.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -18,14 +17,28 @@ class RegisterPage extends StatefulWidget {
 
 class RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
+  var result = "+971";
 
   TextEditingController firstNameController,
       lastNameController,
       passwordController,
       confirmPasswordController,
       emailAddressController,
-      mobileNumberController = TextEditingController();
-  var result = "";
+      mobileNumberController,
+      promoCodeController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    firstNameController = TextEditingController();
+    lastNameController = TextEditingController();
+    passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+    emailAddressController = TextEditingController();
+    promoCodeController = TextEditingController();
+    mobileNumberController = TextEditingController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +46,7 @@ class RegisterPageState extends State<RegisterPage> {
       backgroundColor: Color(0xffF6F6F6),
       body: Form(
         key: _formKey,
+        autovalidate: true,
         child: Padding(
           padding: EdgeInsets.all(10),
           child: SingleChildScrollView(
@@ -63,8 +77,13 @@ class RegisterPageState extends State<RegisterPage> {
                 CustomInput(
                   hint: 'First Name',
                   onSaved: (String val) {},
-                  validator: WidgetValues.validateEmail,
-                  formatter: WhitelistingTextInputFormatter(
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter first name';
+                    }
+                    return null;
+                  },
+                  formatter: FilteringTextInputFormatter.allow(
                       RegExp("[A-Z a-z _ . @ 0-9]")),
                   obsecureText: false,
                   maxLength: 50,
@@ -79,17 +98,15 @@ class RegisterPageState extends State<RegisterPage> {
                     }
                     return null;
                   },
-                  formatter:
-                  WhitelistingTextInputFormatter(
-                      RegExp("[A-Z a-z _ . @ 0-9]"),
-                  ),
+                  formatter: FilteringTextInputFormatter.allow(
+                      RegExp("[A-Z a-z _ . @ 0-9]")),
                   obsecureText: false,
                   maxLength: 50,
                   myController: lastNameController,
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
-                  padding: EdgeInsets.fromLTRB(20, 10, 20, 0.0),
+                  padding: EdgeInsets.fromLTRB(20, 10, 20, 8.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(5),
@@ -148,7 +165,7 @@ class RegisterPageState extends State<RegisterPage> {
                   hint: 'Email address',
                   onSaved: (String val) {},
                   validator: WidgetValues.validateEmail,
-                  formatter: WhitelistingTextInputFormatter(
+                  formatter: FilteringTextInputFormatter.allow(
                       RegExp("[A-Z a-z _ . @ 0-9]")),
                   obsecureText: false,
                   maxLength: 50,
@@ -163,10 +180,10 @@ class RegisterPageState extends State<RegisterPage> {
                     }
                     return null;
                   },
-                  formatter: WhitelistingTextInputFormatter(
+                  formatter: FilteringTextInputFormatter.allow(
                       RegExp("[A-Z a-z _ . @ 0-9]")),
                   obsecureText: true,
-                  maxLength: 50,
+                  maxLength: 25,
                   myController: passwordController,
                 ),
                 CustomInput(
@@ -180,7 +197,7 @@ class RegisterPageState extends State<RegisterPage> {
                       return 'Password Not Match';
                     return null;
                   },
-                  formatter: WhitelistingTextInputFormatter(
+                  formatter: FilteringTextInputFormatter.allow(
                       RegExp("[A-Z a-z _ . @ 0-9]")),
                   obsecureText: true,
                   maxLength: 50,
@@ -224,16 +241,12 @@ class RegisterPageState extends State<RegisterPage> {
                       Expanded(
                         child: CustomInput(
                           hint: 'Mobile no.',
+                          textInputType: TextInputType.number,
                           onSaved: (String val) {},
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter mobile number';
-                            }
-                            return null;
-                          },
-                          formatter: WhitelistingTextInputFormatter(
-                              RegExp("[A-Z a-z _ . @ 0-9]")),
-                          obsecureText: true,
+                          validator: WidgetValues.validateMobile,
+                          formatter: FilteringTextInputFormatter.allow(
+                              RegExp(r'[0-9]')),
+                          obsecureText: false,
                           maxLength: 50,
                           myController: mobileNumberController,
                         ),
@@ -250,11 +263,11 @@ class RegisterPageState extends State<RegisterPage> {
                     }
                     return null;
                   },
-                  formatter: WhitelistingTextInputFormatter(
-                      RegExp("[A-Z a-z _ . @ 0-9]")),
-                  obsecureText: true,
+                  formatter:
+                      WhitelistingTextInputFormatter(RegExp("[A-Z a-z  0-9]")),
+                  obsecureText: false,
                   maxLength: 50,
-                  myController: confirmPasswordController,
+                  myController: promoCodeController,
                 ),
                 Container(
                   alignment: Alignment.centerRight,
@@ -271,7 +284,14 @@ class RegisterPageState extends State<RegisterPage> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 30.0),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          if (_formKey.currentState.validate()) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CountryListPage()));
+                          }
+                        },
                         shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(10.0),
                         ),
@@ -296,11 +316,24 @@ class RegisterPageState extends State<RegisterPage> {
       context,
       // Create the SelectionScreen in the next step.
       SlideRightRoute(
-        page: CountryList(),
+        page: CountryListPage(),
       ),
     );
     setState(() {
       result = val;
     });
+  }
+
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    mobileNumberController.dispose();
+    emailAddressController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    promoCodeController.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 }
